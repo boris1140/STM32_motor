@@ -49,8 +49,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -61,11 +59,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
-extern CAN_HandleTypeDef hcan1;
-extern TIM_HandleTypeDef htim5;
-extern CAN_TxHeaderTypeDef tx_header;
-extern uint8_t tx_data[8];
-extern uint32_t count;
+float LinearMapping(const int16_t in, const int16_t in_min, const int16_t in_max, const float out_min,
+                    const float out_max);
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

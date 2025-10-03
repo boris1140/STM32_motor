@@ -25,6 +25,8 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
 	${CMAKE_SOURCE_DIR}/Core/Src/callback.cpp
+	${CMAKE_SOURCE_DIR}/Core/Src/motor.cpp
+	${CMAKE_SOURCE_DIR}/Core/Src/motor.h
 	${CMAKE_SOURCE_DIR}/startup_stm32f407xx.s
 )
 

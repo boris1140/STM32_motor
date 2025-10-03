@@ -1,17 +1,33 @@
 //
 // Created by zbxboris on 10/3/2025.
 //
-
 #include "main.h"
+#include "can.h"
+#include "motor.h"
+#include "tim.h"
 
-extern uint8_t rx_data[8];
-extern CAN_RxHeaderTypeDef rx_header;
+CAN_RxHeaderTypeDef rx_header;
+CAN_TxHeaderTypeDef tx_header = {
+    .StdId = 0x1FF,
+    .ExtId = 0,
+    .IDE = CAN_ID_STD,
+    .RTR = CAN_RTR_DATA,
+    .DLC = 8,
+    .TransmitGlobalTime = DISABLE
+};
+
+
+uint8_t rx_data[8];
+uint8_t tx_data[8] = {0x00, 0x00, 0x00, 0xD0, 0x00, 0x00, 0x00, 0x00};
+uint32_t count = 0;
+
+M3508_Motor Motor(19.2);
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     if (hcan->Instance == CAN1) {
-        HAL_CAN_GetRxMessage(&hcan1,CAN_RX_FIFO0, &rx_header, rx_data);
-        if (rx_header.StdId == 0x201) {
-            // Motor.canRxMsgCallback(rx_data);
+        HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &rx_header, rx_data);
+        if (rx_header.StdId == 0x206) {
+            Motor.canRxMsgCallback(rx_data);
         }
     }
 }

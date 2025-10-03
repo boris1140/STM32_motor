@@ -1,7 +1,11 @@
 --cpu=Cortex-M4.fp.sp
 "motor\startup_stm32f407xx.o"
 "motor\callback.o"
+"motor\motor.o"
 "motor\main.o"
+"motor\gpio.o"
+"motor\can.o"
+"motor\tim.o"
 "motor\stm32f4xx_it.o"
 "motor\stm32f4xx_hal_msp.o"
 "motor\stm32f4xx_hal_can.o"
