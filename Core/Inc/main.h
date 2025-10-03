@@ -61,7 +61,11 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
-
+extern CAN_HandleTypeDef hcan1;
+extern TIM_HandleTypeDef htim5;
+extern CAN_TxHeaderTypeDef tx_header;
+extern uint8_t tx_data[8];
+extern uint32_t count;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

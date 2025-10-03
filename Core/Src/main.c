@@ -32,21 +32,21 @@ CAN_TxHeaderTypeDef tx_header = {
     .ExtId = 0,
     .IDE = CAN_ID_STD,
     .RTR = CAN_RTR_DATA,
-    .DLC = 0,
+    .DLC = 8,
     .TransmitGlobalTime = DISABLE
 };
 CAN_FilterTypeDef filter_config = {
     .FilterIdHigh = 0x0000,
     .FilterIdLow = 0x0000,
     .FilterMaskIdHigh = 0x0000,
-    .FilterMaskIdLow = 0x00000,
+    .FilterMaskIdLow = 0x0000,
     .FilterFIFOAssignment = CAN_FILTER_FIFO0,
     .FilterBank = 0,
     .FilterMode = CAN_FILTERMODE_IDMASK,
     .FilterScale = CAN_FILTERSCALE_32BIT,
     .FilterActivation = ENABLE,
 };
-/*
+
 class M3508_Motor {
 private:
     const float ratio_;
@@ -66,14 +66,15 @@ public:
 
     void canRxMsgCallback(const uint8_t rx_data[8]);
 };
-*/
+
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 uint8_t rx_data[8];
-uint8_t tx_data[8] = {00,00,00,50,00,00,00,00};
+uint8_t tx_data[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x00, 0x00};
+uint32_t count = 0;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -145,7 +146,7 @@ int main(void) {
     HAL_CAN_ConfigFilter(&hcan1, &filter_config);
     HAL_CAN_Start(&hcan1);
     HAL_CAN_ActivateNotification(&hcan1,CAN_IT_RX_FIFO0_MSG_PENDING);
-    HAL_TIM_Base_Start(&htim5);
+    HAL_TIM_Base_Start_IT(&htim5);
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -217,8 +218,8 @@ static void MX_CAN1_Init(void) {
     hcan1.Init.Prescaler = 3;
     hcan1.Init.Mode = CAN_MODE_NORMAL;
     hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-    hcan1.Init.TimeSeg1 = CAN_BS1_12TQ;
-    hcan1.Init.TimeSeg2 = CAN_BS2_1TQ;
+    hcan1.Init.TimeSeg1 = CAN_BS1_10TQ;
+    hcan1.Init.TimeSeg2 = CAN_BS2_3TQ;
     hcan1.Init.TimeTriggeredMode = DISABLE;
     hcan1.Init.AutoBusOff = DISABLE;
     hcan1.Init.AutoWakeUp = DISABLE;
@@ -287,8 +288,8 @@ static void MX_GPIO_Init(void) {
     /* USER CODE END MX_GPIO_Init_1 */
 
     /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOB_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
     __HAL_RCC_GPIOH_CLK_ENABLE();
 
     /* USER CODE BEGIN MX_GPIO_Init_2 */
