@@ -8,8 +8,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-    float LinearMapping(const int16_t in, const int16_t in_min, const int16_t in_max, const float out_min,
-                        const float out_max);
+float LinearMapping(const int16_t in, const int16_t in_min, const int16_t in_max, const float out_min,
+                    const float out_max);
 #ifdef __cplusplus
 }
 #endif

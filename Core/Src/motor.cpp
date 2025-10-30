@@ -3,7 +3,8 @@
 //
 #include "main.h"
 #include "math.h"
-#include "motor.h"
+#include "../Inc/motor.h"
+
 
 float LinearMapping(const int16_t in, const int16_t in_min, const int16_t in_max, const float out_min,
                     const float out_max) {

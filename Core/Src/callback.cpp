@@ -3,12 +3,12 @@
 //
 #include "main.h"
 #include "can.h"
-#include "motor.h"
+#include "../Inc/motor.h"
 #include "tim.h"
 
 CAN_RxHeaderTypeDef rx_header;
 CAN_TxHeaderTypeDef tx_header = {
-    .StdId = 0x1FF,
+    .StdId = 0x200,
     .ExtId = 0,
     .IDE = CAN_ID_STD,
     .RTR = CAN_RTR_DATA,
@@ -18,7 +18,7 @@ CAN_TxHeaderTypeDef tx_header = {
 
 
 uint8_t rx_data[8];
-uint8_t tx_data[8] = {0x00, 0x00, 0x00, 0xD0, 0x00, 0x00, 0x00, 0x00};
+uint8_t tx_data[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD6};
 uint32_t count = 0;
 
 M3508_Motor Motor(19.2);
